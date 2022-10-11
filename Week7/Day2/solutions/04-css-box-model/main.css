@@ -10,11 +10,17 @@ html, body {
     vertical-align: bottom;
 
     /* Your code here */
+    height: 30px;
+    width: 30px;
+    margin: 3px;
 }
 
 
 h1 {
     /* Your code here */
+    display: inline;
+    /* no effect on inline elements */
+    height: 1000px; 
 }
 
 /* Phase 2 */
@@ -22,12 +28,22 @@ h1 {
 .box {
     /* DO NOT EDIT */
     vertical-align: top;
-
+    
     /* Your code here */
+    border: 4px dotted black;
+    background-color: rgb(231, 207, 47);
+    width: 120px;
+    height: 120px;
+    
+    margin: 10px;
+    padding: 20px;
+    display: inline-block;
+    
 }
 
 .alternate {
     /* Your code here */
+    box-sizing: border-box;
 }
 
 /* Phase 3 */
@@ -45,6 +61,10 @@ h1 {
     font-size: larger;
 
     /* Your code here */
+    width: fit-content;
+    margin: 0px auto 10px auto;
+
+    padding: 40px;
 }
 
 .attribution {
@@ -52,4 +72,7 @@ h1 {
     font-style: italic;
 
     /* Your code here */
+    display: block;
+    width: 200px;
+    margin: 0 auto;
 }
