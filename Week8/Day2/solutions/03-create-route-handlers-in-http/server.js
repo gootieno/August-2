@@ -11,6 +11,9 @@ function getNewDogId() {
 const server = http.createServer((req, res) => {
   console.log(`${req.method} ${req.url}`);
 
+
+  // example for nasa image search
+  // affiliate=nasa&query=mars+rover%21
   let reqBody = "";
   req.on("data", (data) => {
     reqBody += data;
@@ -21,15 +24,21 @@ const server = http.createServer((req, res) => {
     // Parsing the body of the request
     if (reqBody) {
       req.body = reqBody
-        .split("&")
-        .map((keyValuePair) => keyValuePair.split("="))
-        .map(([key, value]) => [key, value.replace(/\+/g, " ")])
-        .map(([key, value]) => [key, decodeURIComponent(value)])
+        .split("&") // [affiliate=nasa,query=mars+rover%21]
+        .map((keyValuePair) => keyValuePair.split("=")) // [[affiliate,nasa],[query,mars+rover%21]]
+        .map(([key, value]) => [key, value.replace(/\+/g, " ")]) // [[affiliate,nasa],[query,mars rover%21]]
+        .map(([key, value]) => [key, decodeURIComponent(value)]) // [[affiliate,nasa],[query,mars+rover!]]
         .reduce((acc, [key, value]) => {
           acc[key] = value;
           return acc;
         }, {});
-      console.log(req.body);
+      console.log(req.body); 
+      /*
+        {
+          affiliate: nasa, 
+          query: mars rover
+        }
+      */
     }
     //!!ADD
     // // Do not edit above this line
