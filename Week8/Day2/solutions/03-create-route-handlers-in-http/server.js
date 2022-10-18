@@ -1,4 +1,4 @@
-const http = require('http');
+const http = require("http");
 
 let nextDogId = 1;
 
@@ -11,7 +11,6 @@ function getNewDogId() {
 const server = http.createServer((req, res) => {
   console.log(`${req.method} ${req.url}`);
 
-
   // example for nasa image search
   // affiliate=nasa&query=mars+rover%21
   let reqBody = "";
@@ -19,6 +18,7 @@ const server = http.createServer((req, res) => {
     reqBody += data;
   });
 
+  // ?affiliate=nasa&query=Mars+Rover%21
   // When the request is finished processing the entire body
   req.on("end", () => {
     // Parsing the body of the request
@@ -27,16 +27,16 @@ const server = http.createServer((req, res) => {
         .split("&") // [affiliate=nasa,query=mars+rover%21]
         .map((keyValuePair) => keyValuePair.split("=")) // [[affiliate,nasa],[query,mars+rover%21]]
         .map(([key, value]) => [key, value.replace(/\+/g, " ")]) // [[affiliate,nasa],[query,mars rover%21]]
-        .map(([key, value]) => [key, decodeURIComponent(value)]) // [[affiliate,nasa],[query,mars+rover!]]
+        .map(([key, value]) => [key, decodeURIComponent(value)]) // [[affiliate,nasa],[query,mars rover!]]
         .reduce((acc, [key, value]) => {
           acc[key] = value;
           return acc;
         }, {});
-      console.log(req.body); 
+      console.log(req.body);
       /*
         {
           affiliate: nasa, 
-          query: mars rover
+          query: mars rover!
         }
       */
     }
@@ -47,60 +47,65 @@ const server = http.createServer((req, res) => {
     // define route handlers here
     //!!START SILENT
     // GET /
-    if (req.method === 'GET' && req.url === '/') {
+    if (req.method === "GET" && req.url === "/") {
       res.statusCode = 200;
-      res.setHeader('Content-Type', 'text/plain');
-      return res.end('Dog Club');
+      res.setHeader("Content-Type", "text/plain");
+      return res.end("Dog Club");
     }
+
     // GET /dogs
-    if (req.method === 'GET' && req.url === '/dogs') {
+    if (req.method === "GET" && req.url === "/dogs") {
       res.statusCode = 200;
-      res.setHeader('Content-Type', 'text/plain');
-      return res.end('Dogs index');
+      res.setHeader("Content-Type", "text/plain");
+      return res.end("Dogs index");
     }
+
     // GET /dogs/new
-    if (req.method === 'GET' && req.url === '/dogs/new') {
+    if (req.method === "GET" && req.url === "/dogs/new") {
       res.statusCode = 200;
-      res.setHeader('Content-Type', 'text/plain');
-      res.write('Dog create form page');
+      res.setHeader("Content-Type", "text/plain");
+      res.write("Dog create form page");
       return res.end();
     }
-    // GET /dogs/:dogId // ex: /dogs/3   
-    if (req.method === 'GET' && req.url.startsWith('/dogs/')) {
-      const urlParts = req.url.split('/'); // ['', 'dogs', '3']
+
+    // GET /dogs/:dogId // ex: /dogs/3
+    if (req.method === "GET" && req.url.startsWith("/dogs/")) {
+      const urlParts = req.url.split("/"); // ['', 'dogs', '3']
+
+      console.log("url parts ", urlParts);
       if (urlParts.length === 3) {
         const dogId = urlParts[2];
         res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plain');
-        res.write('Dog details for dogId: ');
-        res.write(dogId);
+        res.setHeader("Content-Type", "text/plain");
+        res.write("Dog details for dogId: " + dogId);
+        // res.write(dogId);
         return res.end();
       }
     }
     // POST /dogs
-    if (req.method === 'POST' && req.url === '/dogs') {
+    if (req.method === "POST" && req.url === "/dogs") {
       res.statusCode = 302;
-      res.setHeader('Location', '/dogs/' + getNewDogId());
+      res.setHeader("Location", "/dogs/" + getNewDogId());
       return res.end();
     }
     // POST /dogs/:dogId
-    if (req.method === 'POST' && req.url.startsWith('/dogs/')) {
-      const urlParts = req.url.split('/');
+    if (req.method === "POST" && req.url.startsWith("/dogs/")) {
+      const urlParts = req.url.split("/");
       if (urlParts.length === 3) {
         const dogId = urlParts[2];
         res.statusCode = 302;
-        res.setHeader('Location', '/dogs/' + dogId);
+        res.setHeader("Location", "/dogs/" + dogId);
         return res.end();
       }
     }
     // GET /dogs/:dogId/edit // /dogs/3/edit
-    if (req.method === 'GET' && req.url.slice(0, 6) === '/dogs/') {
-      const urlParts = req.url.split('/');
-      if (urlParts.length === 4 && urlParts[3] === 'edit') {
+    if (req.method === "GET" && req.url.slice(0, 6) === "/dogs/") {
+      const urlParts = req.url.split("/");
+      if (urlParts.length === 4 && urlParts[3] === "edit") {
         const dogId = urlParts[2];
         res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plain');
-        res.write('Dog edit form page for dogId: ');
+        res.setHeader("Content-Type", "text/plain");
+        res.write("Dog edit form page for dogId: ");
         res.write(dogId);
         return res.end();
       }
@@ -112,11 +117,11 @@ const server = http.createServer((req, res) => {
     //!!END_ADD
     // Return a 404 response when there is no matching route handler
     res.statusCode = 404;
-    res.setHeader('Content-Type', 'text/plain');
-    return res.end('No matching route handler found for this endpoint');
+    res.setHeader("Content-Type", "text/plain");
+    return res.end("No matching route handler found for this endpoint");
   });
 });
 
 const port = 5000;
 
-server.listen(port, () => console.log('Server is listening on port', port));
+server.listen(port, () => console.log("Server is listening on port", port));
