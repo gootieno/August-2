@@ -8,16 +8,45 @@ add.addEventListener("click", async () => {
     console.log("data ", data);
     const url = data.message; // URL of new dog image
 
-    /*
+    console.log("url ", url);
+    const urlParts = url.split("/");
 
-            <li>
-                <figure>
-                    <img src="https://images.dog.ceo/breeds/hound-afghan/n02088094_1007.jpg" />
-                    <figcaption>hound-afghan</figcaption>
-                </figure>
-            </li>
+    console.log("url parts", urlParts);
+
+    const dogBreed = urlParts[4];
+
+    console.log("dog breed ", dogBreed);
+    /*
+    <li>
+        <figure>
+            <img src="https://images.dog.ceo/breeds/hound-afghan/n02088094_1007.jpg" />
+            <figcaption>hound-afghan</figcaption>
+        </figure>
+    </li>
 
     */
+
+    //1. get a live element from the body to append children to.
+    const ul = document.querySelector("ul");
+    console.log("ul ", ul);
+
+    //2. create elements to append to ul
+
+    const li = document.createElement("li");
+    const figure = document.createElement("figure");
+    const img = document.createElement("img");
+    const figCaption = document.createElement("figcaption");
+
+    //3. add styles, attributes, or values to created elements
+    img.setAttribute("src", url);
+    img.id = "dog-image";
+
+    figCaption.innerText = dogBreed;
+
+    //4. append the elements to associated parents
+    figure.append(img, figCaption);
+    li.appendChild(figure);
+    ul.appendChild(li);
 
     /*--------------- Get breed (Hint: Parse from URL) ---------------- */
     // Your code here
@@ -41,6 +70,7 @@ removeFirst.addEventListener("click", () => {
   // Your code here
   /*-------------------- Remove the first dog card --------------------- */
   // Your code here
+  
 });
 
 /************************** REMOVE LAST DOG BUTTON ***************************/
