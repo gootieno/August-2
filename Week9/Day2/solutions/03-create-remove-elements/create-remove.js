@@ -38,8 +38,16 @@ add.addEventListener("click", async () => {
     const figCaption = document.createElement("figcaption");
 
     //3. add styles, attributes, or values to created elements
+
+    // remove attribute demo
+    // const section = document.getElementById("demo");
+    // console.log("section ", section);
+    // section.removeAttribute("id");
+    // console.log("section", section);
     img.setAttribute("src", url);
     img.id = "dog-image";
+
+    li.style.border = "4px solid red";
 
     figCaption.innerText = dogBreed;
 
@@ -68,9 +76,12 @@ const removeFirst = document.getElementById("remove-first");
 removeFirst.addEventListener("click", () => {
   /*-------------------- Select the first dog card --------------------- */
   // Your code here
+  const firstDog = document.querySelector("li");
+  console.log("first dog ", firstDog);
+
+  firstDog.remove();
   /*-------------------- Remove the first dog card --------------------- */
   // Your code here
-  
 });
 
 /************************** REMOVE LAST DOG BUTTON ***************************/
@@ -80,4 +91,8 @@ removeLast.addEventListener("click", () => {
   // Your code here
   /*-------------------- Remove the last dog card ----------------------- */
   // Your code here
+  const lastDog = document.querySelectorAll("li");
+  console.log("last dog ", lastDog);
+
+  lastDog[lastDog.length - 1].remove();
 });
