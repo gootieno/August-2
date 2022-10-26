@@ -45,5 +45,5 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 
-  // easter egg: first 3 to reach out to me after reading this get an emoji ;) 
+  // easter egg: first 3 to reach out to me after reading this get an emoji ;) deadline: wed eod!
 });
