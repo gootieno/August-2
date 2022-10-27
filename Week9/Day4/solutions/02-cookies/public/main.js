@@ -34,12 +34,39 @@ function clearTheme() {
 // For storing user's display name in cookies
 function storeName(displayName) {
   // Your code here
+  // create a  cookie the way you normally would with document.cookie
 }
 
 // For restoring user's display name from cookies, if set in the past
 function restoreName() {
   // Your code here
+
+  // TO DO! build the getCookies function
+  const cookies = getCookies();
 }
+
+const getCookies = () => {
+  // CONSOLE LOG ALL VARIABLES
+  // store the document cookies to allCookies
+  let allCookies;
+
+  //split the cookies on the "=" and save the result to the cookieParts variable
+  const cookieParts = allCookies.split("; "); // sometimes a space if found between cookies so we must include that space in our split
+
+  //map cookieParts and return a new key/value pair. return the element split @ the "="
+  const cookiePairs = cookieParts.map((cookie) => {
+    // console log the cookie and return it after splitting at the "="
+  });
+
+  let cookieObject = {};
+
+  // iterate through the cookiePairs and set the cookie object key to the name of the cookie, and the value to the value of the cookie.
+  // hint: index 0 holds the key and index 1 holds the value
+
+  // return the cookieObject
+
+  // Use the cookie object to modify the set theme functions as they won't work without the modification.
+};
 
 // For clearing user's display name from cookies
 function clearName() {
